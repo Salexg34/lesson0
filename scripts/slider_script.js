@@ -55,9 +55,9 @@ buttonPrev.addEventListener('click', function () {
 
 function turnSlides (side) {
     if (side == 'left') {
-        offset += sliderObject.fullCardsWidth(123);
+        offset += sliderObject.fullCardsWidth();
     } else if ( side == 'rigth') {
-        offset -= sliderObject.fullCardsWidth(213);
+        offset -= sliderObject.fullCardsWidth();
     }
 
     sliderWrapper.style.transform = `translateX(${offset}px)`;
