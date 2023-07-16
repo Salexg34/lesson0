@@ -1,4 +1,4 @@
-export const initSlider = function() {
+export const initSlider = function(scroll, width, gap, toShow) {
     const slidesCount = document.querySelectorAll('div.slider__cards').length;
     const buttonNext = document.querySelector('.slider__button_next');
     const buttonPrev = document.querySelector('.slider__button_prev');
@@ -7,14 +7,17 @@ export const initSlider = function() {
 
     const sliderObject = {
         slidesCount,
-        cardsWidth: parseInt(getComputedStyle(slider).getPropertyValue('--cards-width')),
-        cardsGap: parseInt(getComputedStyle(slider).getPropertyValue('--cards-gap')),
-        cardsToShow: parseInt(getComputedStyle(slider).getPropertyValue('--cards-to-show')),
+        cardsToScroll: scroll,
+        cardsWidth: slider.style.setProperty('--cards-width', width + 'px'),
+        cardsGap: slider.style.setProperty('--cards-gap', gap + 'px'),
+        cardsToShow: slider.style.setProperty('--cards-to-show', toShow),
+        // для изменения показа количества слайдов, необходимо из функции записывать значение в css .slider --cards-to-show
+        
         maxWidth() {
-            return (this.cardsWidth + this.cardsGap) * (this.slidesCount - this.cardsToShow);
+            return parseInt((this.cardsWidth + this.cardsGap) * (this.slidesCount - this.cardsToScroll));
         },
-        fullCardsWidth(slidesToScroll = this.cardsToShow) {
-            return (this.cardsWidth + this.cardsGap) * slidesToScroll;
+        fullCardsWidth(slidesToScroll = this.cardsToScroll) {
+            return parseInt((this.cardsWidth + this.cardsGap) * slidesToScroll);
         }
     };
 
@@ -42,7 +45,9 @@ export const initSlider = function() {
     };
     
     function checkOffset () {
-        console.log(offset, -sliderObject.maxWidth())
+        console.log(offset, -sliderObject.maxWidth());
+        
+        //нужно сделать проверку, если cardsToShow < cardsToScroll то cardsToShow приравниваем cardsToScroll
         if (offset >= 0) {
             buttonPrev.setAttribute('disabled', true);
             sliderWrapper.style.transform = `translateX(${0}px)`;
@@ -58,6 +63,6 @@ export const initSlider = function() {
             buttonNext.removeAttribute('disabled');
         }
     };
-}
+};
 
 

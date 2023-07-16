@@ -2,6 +2,7 @@
     --cards-width: 300px;
     --cards-to-show: 3;
     --cards-gap: 90px;
+    --cards-to-scrol: 3;
     width: calc(var(--cards-to-show) * (var(--cards-width) + var(--cards-gap)) - var(--cards-gap));
     height: 550px;
     padding-top: 50px;
