@@ -14,10 +14,10 @@ export const initSlider = function(scroll, width, gap, toShow) {
         // для изменения показа количества слайдов, необходимо из функции записывать значение в css .slider --cards-to-show
         
         maxWidth() {
-            return parseInt((this.cardsWidth + this.cardsGap) * (this.slidesCount - this.cardsToScroll));
+            return parseInt((width + gap) * (this.slidesCount - scroll));
         },
-        fullCardsWidth(slidesToScroll = this.cardsToScroll) {
-            return parseInt((this.cardsWidth + this.cardsGap) * slidesToScroll);
+        fullCardsWidth(slidesToScroll = scroll) {
+            return parseInt((width + gap) * scroll);
         }
     };
 
@@ -43,11 +43,14 @@ export const initSlider = function(scroll, width, gap, toShow) {
         sliderWrapper.style.transform = `translateX(${offset}px)`;
         checkOffset();
     };
+    if (toShow <= scroll) {
+        return scroll = toShow;
+        checkOffset();
+    };
     
     function checkOffset () {
-        console.log(offset, -sliderObject.maxWidth());
-        
-        //нужно сделать проверку, если cardsToShow < cardsToScroll то cardsToShow приравниваем cardsToScroll
+        console.log(offset, -sliderObject.maxWidth());        
+
         if (offset >= 0) {
             buttonPrev.setAttribute('disabled', true);
             sliderWrapper.style.transform = `translateX(${0}px)`;
