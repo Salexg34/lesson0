@@ -11,8 +11,6 @@ export const initSlider = function(scroll, width, gap, toShow) {
         cardsWidth: slider.style.setProperty('--cards-width', width + 'px'),
         cardsGap: slider.style.setProperty('--cards-gap', gap + 'px'),
         cardsToShow: slider.style.setProperty('--cards-to-show', toShow),
-        // для изменения показа количества слайдов, необходимо из функции записывать значение в css .slider --cards-to-show
-        
         maxWidth() {
             return parseInt((width + gap) * (this.slidesCount - scroll));
         },
@@ -23,7 +21,7 @@ export const initSlider = function(scroll, width, gap, toShow) {
 
     let offset = 0;
 
-    checkOffset(sliderObject);
+    checkOffset();
 
     buttonNext.addEventListener('click', function () {
         turnSlides('rigth');
@@ -43,6 +41,7 @@ export const initSlider = function(scroll, width, gap, toShow) {
         sliderWrapper.style.transform = `translateX(${offset}px)`;
         checkOffset();
     };
+
     if (toShow <= scroll) {
         return scroll = toShow;
         checkOffset();
