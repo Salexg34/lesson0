@@ -4,7 +4,7 @@ export const initSlider = function(scroll, width, gap, toShow) {
     const buttonPrev = document.querySelector('.slider__button_prev');
     const sliderWrapper = document.querySelector('.slider__wrapper');
     const slider = document.querySelector('.slider');
-    
+
     slider.style.setProperty('--cards-width', width + 'px');
     slider.style.setProperty('--cards-gap', gap + 'px');
     slider.style.setProperty('--cards-to-show', toShow);
