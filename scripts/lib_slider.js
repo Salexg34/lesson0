@@ -4,13 +4,17 @@ export const initSlider = function(scroll, width, gap, toShow) {
     const buttonPrev = document.querySelector('.slider__button_prev');
     const sliderWrapper = document.querySelector('.slider__wrapper');
     const slider = document.querySelector('.slider');
+    
+    slider.style.setProperty('--cards-width', width + 'px');
+    slider.style.setProperty('--cards-gap', gap + 'px');
+    slider.style.setProperty('--cards-to-show', toShow);
 
     const sliderObject = {
         slidesCount,
         cardsToScroll: scroll,
-        cardsWidth: slider.style.setProperty('--cards-width', width + 'px'),
-        cardsGap: slider.style.setProperty('--cards-gap', gap + 'px'),
-        cardsToShow: slider.style.setProperty('--cards-to-show', toShow),
+        cardsWidth: width,
+        cardsGap: gap,
+        cardsToShow: toShow,
         maxWidth() {
             return parseInt((width + gap) * (this.slidesCount - scroll));
         },
@@ -20,6 +24,10 @@ export const initSlider = function(scroll, width, gap, toShow) {
     };
 
     let offset = 0;
+
+    if (toShow <= scroll) {
+        scroll = toShow;
+    };
 
     checkOffset();
 
@@ -39,11 +47,6 @@ export const initSlider = function(scroll, width, gap, toShow) {
         }
     
         sliderWrapper.style.transform = `translateX(${offset}px)`;
-        checkOffset();
-    };
-
-    if (toShow <= scroll) {
-        return scroll = toShow;
         checkOffset();
     };
     
