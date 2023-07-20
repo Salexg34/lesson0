@@ -4,7 +4,9 @@ export const initSlider = function(scroll, width, gap, toShow) {
     const buttonPrev = document.querySelector('.slider__button_prev');
     const sliderWrapper = document.querySelector('.slider__wrapper');
     const slider = document.querySelector('.slider');
-
+   
+    const pagination = document.querySelector('.pagination');
+    
     slider.style.setProperty('--cards-width', width + 'px');
     slider.style.setProperty('--cards-gap', gap + 'px');
     slider.style.setProperty('--cards-to-show', toShow);
@@ -24,6 +26,7 @@ export const initSlider = function(scroll, width, gap, toShow) {
     };
 
     let offset = 0;
+    let currentDot = 0;
 
     if (toShow <= scroll) {
         scroll = toShow;
@@ -68,6 +71,27 @@ export const initSlider = function(scroll, width, gap, toShow) {
             buttonNext.removeAttribute('disabled');
         }
     };
-};
+    
+    paginationSlider ();
+    
+    function paginationSlider () {
+        for (let i = 0; i < slidesCount; i++) {
+            const paginationDot = document.createElement('div');
+            paginationDot.classList.add('dot');
+            paginationDot.innerHTML = i+1;
+            pagination.appendChild(paginationDot);
+            
+            paginationDot.addEventListener('click', function () {
+                paginationDot.classList.add('active');
+                choiceSlider (i);
+              });
+            }
+    };
 
+    function choiceSlider (slideIndex) {
+          currentDot = slideIndex 
+          const translateX = -((width + gap) * currentDot) + (width + gap);
+          sliderWrapper.style.transform = `translateX(${translateX}px)`;
+        }
+    };
 
