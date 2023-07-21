@@ -18,7 +18,7 @@ export const initSlider = function (scroll, width, gap, toShow) {
         cardsGap: gap,
         cardsToShow: toShow,
         maxWidth() {
-            return parseInt((width + gap) * (this.slidesCount - scroll));
+            return parseInt((width + gap) * (this.slidesCount - this.cardsToShow));
         },
         fullCardsWidth(slidesToScroll = scroll) {
             return parseInt((width + gap) * scroll);
@@ -67,6 +67,7 @@ export const initSlider = function (scroll, width, gap, toShow) {
             buttonNext.setAttribute('disabled', true);
             sliderWrapper.style.transform = `translateX(${-sliderObject.maxWidth()}px)`;
             offset = -sliderObject.maxWidth();
+            console.log('stop', offset, -sliderObject.maxWidth())
         } else {
             buttonNext.removeAttribute('disabled');
         }
@@ -93,10 +94,10 @@ export const initSlider = function (scroll, width, gap, toShow) {
     };
 
     function choiceSlider(slideIndex) {
-
         currentDot = slideIndex
         offset = -((width + gap) * currentDot) + (width + gap);
         sliderWrapper.style.transform = `translateX(${offset}px)`;
+        checkOffset();
     }
 };
 
