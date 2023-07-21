@@ -1,12 +1,12 @@
-export const initSlider = function(scroll, width, gap, toShow) {
+export const initSlider = function (scroll, width, gap, toShow) {
     const slidesCount = document.querySelectorAll('div.slider__cards').length;
     const buttonNext = document.querySelector('.slider__button_next');
     const buttonPrev = document.querySelector('.slider__button_prev');
     const sliderWrapper = document.querySelector('.slider__wrapper');
     const slider = document.querySelector('.slider');
-   
+
     const pagination = document.querySelector('.pagination');
-    
+
     slider.style.setProperty('--cards-width', width + 'px');
     slider.style.setProperty('--cards-gap', gap + 'px');
     slider.style.setProperty('--cards-to-show', toShow);
@@ -42,19 +42,19 @@ export const initSlider = function(scroll, width, gap, toShow) {
         turnSlides('left');
     });
 
-    function turnSlides (side) {
+    function turnSlides(side) {
         if (side == 'left') {
             offset += sliderObject.fullCardsWidth();
-        } else if ( side == 'rigth') {
+        } else if (side == 'rigth') {
             offset -= sliderObject.fullCardsWidth();
         }
-    
+
         sliderWrapper.style.transform = `translateX(${offset}px)`;
         checkOffset();
     };
-    
-    function checkOffset () {
-        console.log(offset, -sliderObject.maxWidth());        
+
+    function checkOffset() {
+        console.log(offset, -sliderObject.maxWidth());
 
         if (offset >= 0) {
             buttonPrev.setAttribute('disabled', true);
@@ -63,7 +63,7 @@ export const initSlider = function(scroll, width, gap, toShow) {
         } else {
             buttonPrev.removeAttribute('disabled');
         }
-        if (offset <= -sliderObject.maxWidth()) {    
+        if (offset <= -sliderObject.maxWidth()) {
             buttonNext.setAttribute('disabled', true);
             sliderWrapper.style.transform = `translateX(${-sliderObject.maxWidth()}px)`;
             offset = -sliderObject.maxWidth();
@@ -71,27 +71,32 @@ export const initSlider = function(scroll, width, gap, toShow) {
             buttonNext.removeAttribute('disabled');
         }
     };
-    
-    paginationSlider ();
-    
-    function paginationSlider () {
+
+    paginationSlider();
+
+    function paginationSlider() {
         for (let i = 0; i < slidesCount; i++) {
             const paginationDot = document.createElement('div');
             paginationDot.classList.add('dot');
-            paginationDot.innerHTML = i+1;
+            paginationDot.innerHTML = i + 1;
             pagination.appendChild(paginationDot);
-            
-            paginationDot.addEventListener('click', function () {
+            if (i == 0) {
                 paginationDot.classList.add('active');
-                choiceSlider (i);
-              });
             }
-    };
 
-    function choiceSlider (slideIndex) {
-          currentDot = slideIndex 
-          const translateX = -((width + gap) * currentDot) + (width + gap);
-          sliderWrapper.style.transform = `translateX(${translateX}px)`;
+            paginationDot.addEventListener('click', function () {
+                pagination.querySelector('.active').classList.remove('active');
+                paginationDot.classList.add('active');
+                choiceSlider(i);
+            });
         }
     };
+
+    function choiceSlider(slideIndex) {
+
+        currentDot = slideIndex
+        offset = -((width + gap) * currentDot) + (width + gap);
+        sliderWrapper.style.transform = `translateX(${offset}px)`;
+    }
+};
 
