@@ -6,6 +6,7 @@ export const initSlider = function (scroll, width, gap, toShow) {
     const slider = document.querySelector('.slider');
 
     const pagination = document.querySelector('.pagination');
+    const paginationArr = [];
 
     slider.style.setProperty('--cards-width', width + 'px');
     slider.style.setProperty('--cards-gap', gap + 'px');
@@ -26,7 +27,7 @@ export const initSlider = function (scroll, width, gap, toShow) {
     };
 
     let offset = 0;
-    let currentDot = 0;
+    let currentDot = 1;
 
     if (toShow <= scroll) {
         scroll = toShow;
@@ -44,13 +45,12 @@ export const initSlider = function (scroll, width, gap, toShow) {
 
     function turnSlides(side) {
         if (side == 'left') {
-            offset += sliderObject.fullCardsWidth();
+            currentDot -= 1
         } else if (side == 'rigth') {
-            offset -= sliderObject.fullCardsWidth();
+            currentDot += 1
         }
 
-        sliderWrapper.style.transform = `translateX(${offset}px)`;
-        checkOffset();
+        choiceSlider(currentDot);
     };
 
     function checkOffset() {
@@ -79,15 +79,14 @@ export const initSlider = function (scroll, width, gap, toShow) {
         for (let i = 0; i < slidesCount; i++) {
             const paginationDot = document.createElement('div');
             paginationDot.classList.add('dot');
-            paginationDot.innerHTML = i + 1;
+            paginationDot.innerHTML = '<img src="/img/slider/paginationDotActive.svg">';
             pagination.appendChild(paginationDot);
+            paginationArr.push(paginationDot);
             if (i == 0) {
                 paginationDot.classList.add('active');
             }
 
             paginationDot.addEventListener('click', function () {
-                pagination.querySelector('.active').classList.remove('active');
-                paginationDot.classList.add('active');
                 choiceSlider(i);
             });
         }
@@ -95,9 +94,16 @@ export const initSlider = function (scroll, width, gap, toShow) {
 
     function choiceSlider(slideIndex) {
         currentDot = slideIndex
+        console.log(currentDot);
+        pagination.querySelector('.active').classList.remove('active');
+        paginationArr[currentDot].classList.add('active');
+
         offset = -((width + gap) * currentDot) + (width + gap);
         sliderWrapper.style.transform = `translateX(${offset}px)`;
         checkOffset();
     }
+
+   
+
 };
 
