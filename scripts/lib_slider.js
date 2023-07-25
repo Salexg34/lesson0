@@ -37,11 +37,17 @@ export const initSlider = function (scroll, width, gap, toShow) {
 
     buttonNext.addEventListener('click', function () {
         turnSlides('rigth');
+
     });
 
     buttonPrev.addEventListener('click', function () {
         turnSlides('left');
+
     });
+
+    document.querySelectorAll('.slider__cards').forEach((item, idx) => {
+        item.setAttribute('data-slide-index', idx);
+    })
 
     function turnSlides(side) {
         if (side == 'left') {
@@ -76,34 +82,37 @@ export const initSlider = function (scroll, width, gap, toShow) {
     paginationSlider();
 
     function paginationSlider() {
-        for (let i = 0; i < slidesCount; i++) {
+        for (let i = 1; i < slidesCount - 1; i++) {
             const paginationDot = document.createElement('div');
             paginationDot.classList.add('dot');
+            paginationDot.setAttribute('data-slide-index', i);
             paginationDot.innerHTML = '<img src="/img/slider/paginationDotActive.svg">';
             pagination.appendChild(paginationDot);
             paginationArr.push(paginationDot);
-            if (i == 0) {
+
+            if (i == 1) {
                 paginationDot.classList.add('active');
             }
 
             paginationDot.addEventListener('click', function () {
                 choiceSlider(i);
             });
-        }
+        };
     };
 
     function choiceSlider(slideIndex) {
-        currentDot = slideIndex
-        console.log(currentDot);
+
+        currentDot = slideIndex;
+
         pagination.querySelector('.active').classList.remove('active');
-        paginationArr[currentDot].classList.add('active');
+        const currentElements = document.querySelectorAll(`[data-slide-index = '${currentDot}']`);
+        currentElements.forEach(function (item){
+            item.classList.add('active')
+        })
 
         offset = -((width + gap) * currentDot) + (width + gap);
         sliderWrapper.style.transform = `translateX(${offset}px)`;
         checkOffset();
     }
-
-   
-
 };
 
