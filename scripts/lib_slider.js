@@ -66,6 +66,7 @@ export const initSlider = function (scroll, width, gap, toShow) {
             buttonPrev.setAttribute('disabled', true);
             sliderWrapper.style.transform = `translateX(${0}px)`;
             offset = 0;
+
         } else {
             buttonPrev.removeAttribute('disabled');
         }
@@ -103,10 +104,14 @@ export const initSlider = function (scroll, width, gap, toShow) {
     function choiceSlider(slideIndex) {
 
         currentDot = slideIndex;
+        
+        const activeElements = document.querySelectorAll('div.active');
+        activeElements.forEach(function (item) {
+            item.classList.remove('active');
+        });
 
-        pagination.querySelector('.active').classList.remove('active');
         const currentElements = document.querySelectorAll(`[data-slide-index = '${currentDot}']`);
-        currentElements.forEach(function (item){
+        currentElements.forEach(function (item) {
             item.classList.add('active')
         })
 
@@ -115,4 +120,5 @@ export const initSlider = function (scroll, width, gap, toShow) {
         checkOffset();
     }
 };
+// необходимо снимать класс active с элементов slider__cards
 
