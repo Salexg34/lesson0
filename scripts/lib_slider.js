@@ -1,43 +1,69 @@
-export const initSlider = function (scroll, width, gap, toShow) {
-    const slidesCount = document.querySelectorAll('div.slider__cards').length;
-    const buttonNext = document.querySelector('.slider__button_next');
-    const buttonPrev = document.querySelector('.slider__button_prev');
-    const sliderWrapper = document.querySelector('.slider__wrapper');
-    const slider = document.querySelector('.slider');
+import { getMaxWidth } from "./utils/get_max_width.js";
+import { changeSliderProperties } from "./utils/change_slider_properties.js";
+import { findElements } from "./utils/find_elements.js";
+import { check } from "./utils/check_offset.js";
+import { paginationSlider } from "./utils/pagination_slider.js";
+import { choiceSlider } from "./utils/choice_slider.js";
 
-    const pagination = document.querySelector('.pagination');
-    const paginationArr = [];
+/**
+ * Init slider
+ * @param {number} scroll - Количество прокручиваемых слайдов 
+ * @param {number} width - Ширина слайда
+ * @param {number} gap - Расстояние между слайдами
+ * @param {number} toShow - Количество вывода слайдов к показу
+ */
 
-    slider.style.setProperty('--cards-width', width + 'px');
-    slider.style.setProperty('--cards-gap', gap + 'px');
-    slider.style.setProperty('--cards-to-show', toShow);
+/**
+ * Get max width
+ * @param {number} slidesCount - Общее количество слайдов 
+ * @param {number} cardsToShow - Количество вывода слайдов к показу
+ */
 
-    const sliderObject = {
+/**
+ * find еlements
+ * @param {EventTarget} buttonNext - Кнопка "Следующий" ????????
+ * @param {EventTarget} buttonPrev - Кнопка "Предыдущий"
+ * @param {number} sliderWrapper - Смещение по оси Х
+ * @param {} pagination - Пагинация ?????
+ */
+
+/**
+ * Check offset
+ * @param {number} offset - Позиция слайда ???? 
+ * @param {number} maxWidth - Общая ширина слоя слайдов
+ */
+
+/**
+ * Pagination slider
+ * @param {number} offset - Позиция слайда ???? 
+ * @param {number} maxWidth - Общая ширина слоя слайдов
+ */
+
+export const initSlider = function (scroll, width, gap, toShow) {  
+    const {
         slidesCount,
-        cardsToScroll: scroll,
-        cardsWidth: width,
-        cardsGap: gap,
-        cardsToShow: toShow,
-        maxWidth() {
-            return parseInt((width + gap) * (this.slidesCount - this.cardsToShow));
-        },
-        fullCardsWidth(slidesToScroll = scroll) {
-            return parseInt((width + gap) * scroll);
-        }
-    };
-
-    let offset = 0;
-    let currentDot = 1;
+        buttonNext,
+        buttonPrev, 
+        sliderWrapper,
+        pagination
+    } = findElements();
 
     if (toShow <= scroll) {
         scroll = toShow;
     };
 
-    checkOffset();
+    changeSliderProperties({width, gap, toShow});
+
+    const maxWidth = getMaxWidth({width, gap, slidesCount, toShow});
+    // const fullCardsWidth = getFullCardsWidth({width, gap, scroll})
+
+    let offset = 0;
+    let currentDot = 1;
+
+    check({offset, maxWidth, buttonPrev, sliderWrapper, buttonNext});
 
     buttonNext.addEventListener('click', function () {
         turnSlides('rigth');
-
     });
 
     buttonPrev.addEventListener('click', function () {
@@ -58,53 +84,16 @@ export const initSlider = function (scroll, width, gap, toShow) {
 
         choiceSlider(currentDot);
     };
+   
 
-    function checkOffset() {
-        console.log(offset, -sliderObject.maxWidth());
-
-        if (offset >= 0) {
-            buttonPrev.setAttribute('disabled', true);
-            sliderWrapper.style.transform = `translateX(${0}px)`;
-            offset = 0;
-
-        } else {
-            buttonPrev.removeAttribute('disabled');
-        }
-        if (offset <= -sliderObject.maxWidth()) {
-            buttonNext.setAttribute('disabled', true);
-            sliderWrapper.style.transform = `translateX(${-sliderObject.maxWidth()}px)`;
-            offset = -sliderObject.maxWidth();
-            console.log('stop', offset, -sliderObject.maxWidth())
-        } else {
-            buttonNext.removeAttribute('disabled');
-        }
-    };
-
-    paginationSlider();
-
-    function paginationSlider() {
-        for (let i = 1; i < slidesCount - 1; i++) {
-            const paginationDot = document.createElement('div');
-            paginationDot.classList.add('dot');
-            paginationDot.setAttribute('data-slide-index', i);
-            paginationDot.innerHTML = '<img src="/img/slider/paginationDotActive.svg">';
-            pagination.appendChild(paginationDot);
-            paginationArr.push(paginationDot);
-
-            if (i == 1) {
-                paginationDot.classList.add('active');
-            }
-
-            paginationDot.addEventListener('click', function () {
-                choiceSlider(i);
-            });
-        };
-    };
+    paginationSlider({slidesCount, pagination, choiceSlider});
+    // choiceSlider({check, currentDot, offset, width, gap, sliderWrapper, maxWidth, buttonPrev, buttonNext});
+   
 
     function choiceSlider(slideIndex) {
 
         currentDot = slideIndex;
-        
+
         const activeElements = document.querySelectorAll('div.active');
         activeElements.forEach(function (item) {
             item.classList.remove('active');
@@ -117,8 +106,7 @@ export const initSlider = function (scroll, width, gap, toShow) {
 
         offset = -((width + gap) * currentDot) + (width + gap);
         sliderWrapper.style.transform = `translateX(${offset}px)`;
-        checkOffset();
+        check({offset, maxWidth, buttonPrev, sliderWrapper, buttonNext});
     }
 };
-// необходимо снимать класс active с элементов slider__cards
 
