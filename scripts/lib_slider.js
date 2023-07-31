@@ -3,47 +3,21 @@ import { changeSliderProperties } from "./utils/change_slider_properties.js";
 import { findElements } from "./utils/find_elements.js";
 import { check } from "./utils/check_offset.js";
 import { paginationSlider } from "./utils/pagination_slider.js";
-import { choiceSlider } from "./utils/choice_slider.js";
+
+// import { choiceSlider } from "./utils/choice_slider.js";
 
 /**
- * Init slider
+ * InitSlider
  * @param {number} scroll - Количество прокручиваемых слайдов 
  * @param {number} width - Ширина слайда
- * @param {number} gap - Расстояние между слайдами
+ * @param {number} gap - отступ между слайдами
  * @param {number} toShow - Количество вывода слайдов к показу
  */
-
-/**
- * Get max width
- * @param {number} slidesCount - Общее количество слайдов 
- * @param {number} cardsToShow - Количество вывода слайдов к показу
- */
-
-/**
- * find еlements
- * @param {EventTarget} buttonNext - Кнопка "Следующий" ????????
- * @param {EventTarget} buttonPrev - Кнопка "Предыдущий"
- * @param {number} sliderWrapper - Смещение по оси Х
- * @param {} pagination - Пагинация ?????
- */
-
-/**
- * Check offset
- * @param {number} offset - Позиция слайда ???? 
- * @param {number} maxWidth - Общая ширина слоя слайдов
- */
-
-/**
- * Pagination slider
- * @param {number} offset - Позиция слайда ???? 
- * @param {number} maxWidth - Общая ширина слоя слайдов
- */
-
-export const initSlider = function (scroll, width, gap, toShow) {  
+export const initSlider = function (scroll, width, gap, toShow) {
     const {
         slidesCount,
         buttonNext,
-        buttonPrev, 
+        buttonPrev,
         sliderWrapper,
         pagination
     } = findElements();
@@ -52,15 +26,15 @@ export const initSlider = function (scroll, width, gap, toShow) {
         scroll = toShow;
     };
 
-    changeSliderProperties({width, gap, toShow});
+    changeSliderProperties({ width, gap, toShow });
 
-    const maxWidth = getMaxWidth({width, gap, slidesCount, toShow});
+    const maxWidth = getMaxWidth({ width, gap, slidesCount, toShow });
     // const fullCardsWidth = getFullCardsWidth({width, gap, scroll})
 
     let offset = 0;
     let currentDot = 1;
-
-    check({offset, maxWidth, buttonPrev, sliderWrapper, buttonNext});
+    
+    check({ offset, maxWidth, buttonPrev, sliderWrapper, buttonNext });
 
     buttonNext.addEventListener('click', function () {
         turnSlides('rigth');
@@ -85,10 +59,8 @@ export const initSlider = function (scroll, width, gap, toShow) {
         choiceSlider(currentDot);
     };
    
-
-    paginationSlider({slidesCount, pagination, choiceSlider});
+    paginationSlider({ slidesCount, pagination, choiceSlider });
     // choiceSlider({check, currentDot, offset, width, gap, sliderWrapper, maxWidth, buttonPrev, buttonNext});
-   
 
     function choiceSlider(slideIndex) {
 
@@ -106,7 +78,7 @@ export const initSlider = function (scroll, width, gap, toShow) {
 
         offset = -((width + gap) * currentDot) + (width + gap);
         sliderWrapper.style.transform = `translateX(${offset}px)`;
-        check({offset, maxWidth, buttonPrev, sliderWrapper, buttonNext});
+        check({ offset, maxWidth, buttonPrev, sliderWrapper, buttonNext });
     }
 };
 

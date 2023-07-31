@@ -1,3 +1,12 @@
+/**
+ * Модуль paginationSlider
+ * @module utils/pagination_slider
+ * 
+ * Pagination slider
+ * @param {number} slidesCount - количество слайдов 
+ * @param {number} maxWidth - Общая ширина слоя слайдов
+ *  choiceSlider
+ */
 export const paginationSlider = function paginationSlider({slidesCount, pagination, choiceSlider}) {
     for (let i = 1; i < slidesCount - 1; i++) {
         const paginationDot = document.createElement('div');
