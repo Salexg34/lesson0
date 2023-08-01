@@ -1,13 +1,16 @@
 /**
  * Модуль check
  * @module utils/check_offset
-
- * Check offset
- * @param {number} offset - Начальная позиция слайда
- * @param {number} maxWidth - значение скрытой области слайдов
- * buttonPrev
- * sliderWrapper
- * buttonNext
+ 
+ * Проверяет смещение (offset) и применяет соответствующие изменения для кнопок и слайдера.
+ *
+ * @param {object} check - Объект с параметрами для проверки.
+ * @param {number} check.offset - Текущее смещение слайдера.
+ * @param {number} check.maxWidth - Максимальное допустимое смещение слайдера.
+ * @param {HTMLElement} check.buttonPrev - Кнопка "Предыдущий слайд".
+ * @param {HTMLElement} check.sliderWrapper - Обертка слайдера.
+ * @param {HTMLElement} check.buttonNext - Кнопка "Следующий слайд".
+ * @returns {void}
  */
 
 export const check = function checkOffset({offset, maxWidth, buttonPrev, sliderWrapper, buttonNext}) {

@@ -1,5 +1,4 @@
-export const choiceSlider = function choiceSlider({check, currentDot, slideIndex, offset, width, gap, sliderWrapper, maxWidth, buttonPrev, buttonNext}) {
-
+export default function choiceSlider({ check, currentDot, slideIndex, offset, width, gap, sliderWrapper, maxWidth, buttonPrev, buttonNext }) {
     currentDot = slideIndex;
 
     const activeElements = document.querySelectorAll('div.active');
@@ -7,12 +6,12 @@ export const choiceSlider = function choiceSlider({check, currentDot, slideIndex
         item.classList.remove('active');
     });
 
-    const currentElements = document.querySelectorAll(`[data-slide-index = '${currentDot}']`);
+    const currentElements = document.querySelectorAll(`[data-slide-index='${currentDot}']`);
     currentElements.forEach(function (item) {
-        item.classList.add('active')
-    })
+        item.classList.add('active');
+    });
 
     offset = -((width + gap) * currentDot) + (width + gap);
     sliderWrapper.style.transform = `translateX(${offset}px)`;
-    check({offset, maxWidth, buttonPrev, sliderWrapper, buttonNext});
+    check({ offset, maxWidth, buttonPrev, sliderWrapper, buttonNext });
 };

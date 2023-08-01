@@ -2,13 +2,14 @@
  * Модуль findElements
  * @module utils/find_elements
  *
- * функция для получения значений селекторов
- * @param {number} slidesCount - количество слайдов
- * @constant {} - Кнопка "Следующий" ????????
- * @param {} buttonPrev - Кнопка "Предыдущий" ??????
- * @param {number} sliderWrapper - Смещение по оси Х
- * @param {} pagination - Пагинация ?????
- * @returns {}
+ * Находит и возвращает различные элементы слайдера.
+ *
+ * @returns {object} Объект, содержащий найденные элементы слайдера.
+ * @property {number} slidesCount - Количество слайдов в слайдере (число).
+ * @property {HTMLElement} buttonNext - Ссылка на кнопку "Следующий слайд".
+ * @property {HTMLElement} buttonPrev - Ссылка на кнопку "Предыдущий слайд".
+ * @property {HTMLElement} sliderWrapper - Ссылка на div слайдера.
+ * @property {HTMLElement} pagination - Ссылка на элемент пагинации слайдера.
  */
 
 export const findElements = function () {

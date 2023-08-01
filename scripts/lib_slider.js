@@ -4,7 +4,8 @@ import { findElements } from "./utils/find_elements.js";
 import { check } from "./utils/check_offset.js";
 import { paginationSlider } from "./utils/pagination_slider.js";
 
-// import { choiceSlider } from "./utils/choice_slider.js";
+// import  choiceSlider from "./utils/choice_slider.js";
+
 
 /**
  * InitSlider
@@ -58,9 +59,22 @@ export const initSlider = function (scroll, width, gap, toShow) {
 
         choiceSlider(currentDot);
     };
+
+    // const sliderOptions = {
+    //     check: check,
+    //     currentDot: currentDot,
+    //     // slideIndex: slideIndex,
+    //     offset: offset,
+    //     width: width,
+    //     gap: gap,
+    //     sliderWrapper: sliderWrapper,
+    //     maxWidth: maxWidth,
+    //     buttonPrev: buttonPrev,
+    //     buttonNext: buttonNext,
+    // };
    
     paginationSlider({ slidesCount, pagination, choiceSlider });
-    // choiceSlider({check, currentDot, offset, width, gap, sliderWrapper, maxWidth, buttonPrev, buttonNext});
+    // choiceSlider(sliderOptions);
 
     function choiceSlider(slideIndex) {
 

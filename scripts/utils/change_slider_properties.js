@@ -2,11 +2,13 @@
  * Модуль changeSliderProperties
  * @module utils/change_slider_properties
  * 
- * changeSliderProperties - получение параметров слайдера
- * @constant ????????
- * @param {number} width - ширина слайда
- * @param {number} gap - отступ между слайдами
- * @param {number} toShow - количество вывода слайдов к показу
+ * Изменяет свойства слайдера, такие как ширина карточек, промежуток между карточками и количество карточек для отображения.
+ *
+ * @param {object} changeSliderProperties - Объект для изменения свойств слайдера.
+ * @param {number} changeSliderProperties.width - Ширина  карточки в пикселях.
+ * @param {number} changeSliderProperties.gap - Промежуток между карточками в пикселях.
+ * @param {number} changeSliderProperties.toShow - Количество карточек для отображения одновременно.
+ * @returns {void}
  */
 export const changeSliderProperties = function ({width, gap, toShow})  {
     const slider = document.querySelector('.slider');
