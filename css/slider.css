@@ -30,7 +30,7 @@
 
 .slider__cards {
     width: var(--cards-width);
-    height: 350px;
+    /* height: 350px; */
     flex-shrink: 0;
 
     border-radius: 10px;

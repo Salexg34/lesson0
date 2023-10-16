@@ -7,3 +7,10 @@
 @import url('./css/hero.css');
 @import url('./css/main.css');
 @import url('./css/slider.css');
+
+.default_index {
+    padding: 10px;
+    background-color: black;
+    color: white;
+    font-size: 16px;
+}

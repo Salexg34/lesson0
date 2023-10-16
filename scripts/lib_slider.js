@@ -59,22 +59,8 @@ export const initSlider = function (scroll, width, gap, toShow) {
 
         choiceSlider(currentDot);
     };
-
-    // const sliderOptions = {
-    //     check: check,
-    //     currentDot: currentDot,
-    //     // slideIndex: slideIndex,
-    //     offset: offset,
-    //     width: width,
-    //     gap: gap,
-    //     sliderWrapper: sliderWrapper,
-    //     maxWidth: maxWidth,
-    //     buttonPrev: buttonPrev,
-    //     buttonNext: buttonNext,
-    // };
    
     paginationSlider({ slidesCount, pagination, choiceSlider });
-    // choiceSlider(sliderOptions);
 
     function choiceSlider(slideIndex) {
 
